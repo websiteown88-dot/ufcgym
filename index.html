@@ -1024,6 +1024,126 @@
     }
   }
 
+
+
+  
+  /* ===== 官方 LINE 浮動諮詢按鈕：清晰識別＋全裝置響應式 ===== */
+  .line-float-button{
+    --line-icon-size:clamp(46px,4.2vw,56px);
+    position:fixed;
+    right:max(clamp(14px,2vw,28px), env(safe-area-inset-right));
+    bottom:max(clamp(16px,2.4vw,30px), calc(env(safe-area-inset-bottom) + 16px));
+    z-index:9999;
+    display:flex;
+    align-items:center;
+    gap:clamp(10px,1vw,14px);
+    min-height:clamp(64px,5.6vw,76px);
+    padding:clamp(7px,.65vw,10px) clamp(15px,1.4vw,22px) clamp(7px,.65vw,10px) clamp(7px,.65vw,10px);
+    border:1px solid rgba(6,199,85,.52);
+    border-radius:999px;
+    color:#111;
+    background:rgba(255,255,255,.98);
+    box-shadow:0 16px 36px rgba(0,0,0,.34),0 0 0 1px rgba(6,199,85,.08),0 0 28px rgba(6,199,85,.18);
+    font-family:'Noto Sans TC',sans-serif;
+    text-decoration:none;
+    transform:translateZ(0);
+    transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease;
+    -webkit-tap-highlight-color:transparent;
+    isolation:isolate;
+  }
+  .line-float-button:hover{
+    transform:translateY(-3px);
+    border-color:#06C755;
+    box-shadow:0 20px 44px rgba(0,0,0,.38),0 0 34px rgba(6,199,85,.28);
+  }
+  .line-float-button:active{transform:translateY(-1px) scale(.98);}
+  .line-float-button:focus-visible{outline:3px solid #06C755;outline-offset:4px;}
+  .line-float-icon{
+    width:var(--line-icon-size);
+    height:var(--line-icon-size);
+    border-radius:22%;
+    display:grid;
+    place-items:center;
+    flex:none;
+    overflow:hidden;
+    background:#06C755;
+    box-shadow:0 7px 16px rgba(0,0,0,.18);
+  }
+  .line-float-icon svg{width:100%;height:100%;display:block;}
+  .line-float-copy{display:flex;flex-direction:column;line-height:1.18;white-space:nowrap;}
+  .line-float-copy strong{
+    display:flex;
+    align-items:center;
+    gap:7px;
+    color:#111;
+    font-size:clamp(14px,1.08vw,17px);
+    font-weight:900;
+    letter-spacing:.02em;
+  }
+  .line-float-copy strong::after{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#06C755;
+    box-shadow:0 0 0 4px rgba(6,199,85,.13);
+  }
+  .line-float-copy small{
+    margin-top:4px;
+    color:#4d4d4d;
+    font-size:clamp(10px,.82vw,12px);
+    font-weight:700;
+    letter-spacing:.05em;
+  }
+  .line-float-button::after{
+    content:"";
+    position:absolute;
+    inset:-7px;
+    border-radius:999px;
+    border:1px solid rgba(6,199,85,.34);
+    opacity:0;
+    animation:linePulse 2.5s ease-out infinite;
+    pointer-events:none;
+    z-index:-1;
+  }
+  @keyframes linePulse{
+    0%,38%{transform:scale(.94);opacity:0;}
+    48%{opacity:.55;}
+    100%{transform:scale(1.16);opacity:0;}
+  }
+
+  /* 平板與手機：縮成官方 LINE App 圖示，避免遮擋頁面 */
+  @media (max-width:760px){
+    .line-float-button{
+      --line-mobile-size:clamp(58px,15vw,68px);
+      right:max(clamp(12px,3.5vw,18px), env(safe-area-inset-right));
+      bottom:max(clamp(14px,4vw,20px), calc(env(safe-area-inset-bottom) + 14px));
+      width:var(--line-mobile-size);
+      height:var(--line-mobile-size);
+      min-height:var(--line-mobile-size);
+      padding:4px;
+      justify-content:center;
+      gap:0;
+      border-radius:26%;
+      background:#fff;
+      box-shadow:0 14px 30px rgba(0,0,0,.36),0 0 24px rgba(6,199,85,.24);
+    }
+    .line-float-icon{
+      width:100%;
+      height:100%;
+      border-radius:22%;
+      box-shadow:none;
+    }
+    .line-float-copy{display:none;}
+    .line-float-button::after{border-radius:28%;}
+  }
+  @media (max-width:360px){
+    .line-float-button{--line-mobile-size:54px;right:max(10px,env(safe-area-inset-right));}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .line-float-button,.line-float-button::after{animation:none;transition:none;}
+  }
+
 </style>
   <!-- 2026-08-05：6000見面禮標題改為容器查詢與全裝置自動排版，避免不自然斷行 -->
   <!-- 2026-08-05：12F 與 13F 場地平面圖已更新 -->
@@ -1261,6 +1381,30 @@
     <span>本頁面為銷售版型示意，非官方頁面</span>
   </div>
 </footer>
+
+
+
+<a class="line-float-button"
+   href="https://s.no8.io/link/channels/YuxwMfwmch"
+   target="_blank"
+   rel="noopener noreferrer"
+   aria-label="開啟 UFC GYM LINE 官方帳號對話"
+   title="LINE 官方帳號｜立即對話諮詢">
+  <span class="line-float-icon" aria-hidden="true">
+    <!-- LINE 官方識別樣式：LINE 綠底、白色對話框、綠色 LINE 字樣 -->
+    <svg viewBox="0 0 64 64" role="img" aria-label="LINE 官方帳號">
+      <rect width="64" height="64" rx="14" fill="#06C755"/>
+      <path fill="#fff" d="M32 7C17.64 7 6 16.82 6 28.93c0 10.87 9.19 19.98 21.6 21.7 1.05.23 2.48.7 2.84 1.62.32.84.21 2.15.1 3-.06.5-.46 2.94-.52 3.4-.08.5-.4 1.94 1.7 1.06 2.1-.89 11.34-6.68 15.47-11.43C53.02 43.1 58 36.22 58 28.93 58 16.82 46.36 7 32 7Z"/>
+      <text x="32" y="33.5" text-anchor="middle" dominant-baseline="middle"
+            fill="#06C755" font-family="Arial, Helvetica, sans-serif"
+            font-size="12.5" font-weight="900" letter-spacing="0.15">LINE</text>
+    </svg>
+  </span>
+  <span class="line-float-copy">
+    <strong>LINE 官方帳號</strong>
+    <small>點擊立即對話諮詢</small>
+  </span>
+</a>
 
 </body>
 </html>
